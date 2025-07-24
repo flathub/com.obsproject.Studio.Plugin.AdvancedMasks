@@ -9,7 +9,6 @@ build-options:
   prefix: /app/plugins/AdvancedMasks
 
 modules:
-  # Module 1: install the json tar
   - name: json
     buildsystem: simple
     build-commands:
@@ -21,7 +20,6 @@ modules:
         sha256: d6c65aca6b1ed68e7a182f4757257b107ae403032760ed6ef121c9d55e81757d
         dest-filename: json.tar.xz
 
-  # Module 2: build your actual program
   - name: advanced-masks
     buildsystem: simple
     build-commands:
