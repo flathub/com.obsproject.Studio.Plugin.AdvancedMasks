@@ -24,7 +24,8 @@ modules:
     buildsystem: simple
     build-commands:
       - mv ${FLATPAK_DEST}/share/json/json.tar.xz .
-      - cmake -G Ninja -DCMAKE_INSTALL_PREFIX=${FLATPAK_DEST} -DCMAKE_BUILD_TYPE=Release .
+      - cmake -G Ninja -DCMAKE_INSTALL_PREFIX=${FLATPAK_DEST} -DCMAKE_BUILD_TYPE=Release
+        .
       - ninja install
     post-install:
       - cp -r /app/plugins/AdvancedMasks/data/obs-plugins/obs-advanced-masks /app/plugins/AdvancedMasks/share/obs/obs-plugins
@@ -36,6 +37,7 @@ modules:
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)
+        tag: v1.5.3
       - type: file
         path: com.obsproject.Studio.Plugin.AdvancedMasks.metainfo.xml
 
