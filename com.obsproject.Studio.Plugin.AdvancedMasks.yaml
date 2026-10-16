@@ -33,11 +33,11 @@ modules:
     sources:
       - type: git
         url: https://github.com/FiniteSingularity/obs-advanced-masks.git
-        commit: 63f2eae2f9f174d781f4a127b66e878760430532
+        commit: 427e1439517060305503dc4fee14f116f2f2ffab
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)
-        tag: v1.5.4
+        tag: v1.6.0
       - type: file
         path: com.obsproject.Studio.Plugin.AdvancedMasks.metainfo.xml
 
