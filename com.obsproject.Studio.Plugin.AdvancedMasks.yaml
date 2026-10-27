@@ -33,7 +33,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/FiniteSingularity/obs-advanced-masks.git
-        commit: 2c91555ce2c5409fc34c2cb1804aae719780460e
+        commit: 8c888208162d9e271b10931ef29e45e871210ec0
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)
