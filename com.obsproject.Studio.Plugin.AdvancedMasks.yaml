@@ -24,20 +24,20 @@ modules:
     buildsystem: simple
     build-commands:
       - mv ${FLATPAK_DEST}/share/json/json.tar.xz .
-      - cmake -G Ninja -DCMAKE_INSTALL_PREFIX=${FLATPAK_DEST} -DCMAKE_BUILD_TYPE=Release
-        .
-      - ninja install
+      - cmake -G Ninja -B build -DCMAKE_INSTALL_PREFIX=${FLATPAK_DEST} -DCMAKE_BUILD_TYPE=Release
+        -DENABLE_QT=ON -DENABLE_FRONTEND_API=ON
+      - ninja -C build
+      - cmake --install build --component Legacy
     post-install:
-      - cp -r /app/plugins/AdvancedMasks/data/obs-plugins/obs-advanced-masks /app/plugins/AdvancedMasks/share/obs/obs-plugins
       - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_BUILDER_BUILDDIR}/${FLATPAK_ID}.metainfo.xml
     sources:
       - type: git
         url: https://github.com/FiniteSingularity/obs-advanced-masks.git
-        commit: 63f2eae2f9f174d781f4a127b66e878760430532
+        commit: 2c91555ce2c5409fc34c2cb1804aae719780460e
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)
-        tag: v1.5.4
+        tag: v1.6.1
       - type: file
         path: com.obsproject.Studio.Plugin.AdvancedMasks.metainfo.xml
 
