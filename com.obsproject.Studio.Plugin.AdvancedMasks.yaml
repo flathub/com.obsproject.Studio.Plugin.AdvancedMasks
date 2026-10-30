@@ -21,18 +21,13 @@ modules:
         dest-filename: json.tar.xz
 
   - name: advanced-masks
-    buildsystem: cmake-ninja
-    builddir: true
-    no-make-install: true
-    config-opts:
-      - -DCMAKE_BUILD_TYPE=Release
-      - -DCMAKE_INSTALL_LIBDIR=lib
-      - -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF
-      - -DENABLE_QT=ON
-      - -DENABLE_FRONTEND_API=ON
+    buildsystem: simple
     build-commands:
       - mv ${FLATPAK_DEST}/share/json/json.tar.xz .
-      - cmake --install . --component Modern
+      - cmake -G Ninja -B build -DCMAKE_INSTALL_PREFIX=${FLATPAK_DEST} -DCMAKE_BUILD_TYPE=Release
+        -DENABLE_QT=ON -DENABLE_FRONTEND_API=ON
+      - ninja -C build
+      - cmake --install build --component Modern
     post-install:
       - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_BUILDER_BUILDDIR}/${FLATPAK_ID}.metainfo.xml
     sources:
