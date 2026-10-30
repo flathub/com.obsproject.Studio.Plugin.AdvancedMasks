@@ -25,6 +25,7 @@ modules:
     build-commands:
       - mv ${FLATPAK_DEST}/share/json/json.tar.xz .
       - cmake -G Ninja -B build -DCMAKE_INSTALL_PREFIX=${FLATPAK_DEST} -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF
         -DENABLE_QT=ON -DENABLE_FRONTEND_API=ON
       - ninja -C build
       - cmake --install build --component Modern
