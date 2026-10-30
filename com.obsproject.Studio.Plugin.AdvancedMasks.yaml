@@ -2,7 +2,7 @@ id: com.obsproject.Studio.Plugin.AdvancedMasks
 branch: stable
 runtime: com.obsproject.Studio
 runtime-version: stable
-sdk: org.kde.Sdk//6.6
+sdk: org.freedesktop.Sdk//26.08
 build-extension: true
 separate-locales: false
 build-options:
@@ -21,13 +21,17 @@ modules:
         dest-filename: json.tar.xz
 
   - name: advanced-masks
-    buildsystem: simple
+    buildsystem: cmake-ninja
+    builddir: true
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DCMAKE_INSTALL_LIBDIR=lib
+      - -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF
+      - -DENABLE_QT=ON
+      - -DENABLE_FRONTEND_API=ON
     build-commands:
-      - mv ${FLATPAK_DEST}/share/json/json.tar.xz .
-      - cmake -G Ninja -B build -DCMAKE_INSTALL_PREFIX=${FLATPAK_DEST} -DCMAKE_BUILD_TYPE=Release
-        -DENABLE_QT=ON -DENABLE_FRONTEND_API=ON
-      - ninja -C build
-      - cmake --install build --component Legacy
+      - cmake --install . --component Modern
     post-install:
       - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_BUILDER_BUILDDIR}/${FLATPAK_ID}.metainfo.xml
     sources:
@@ -36,6 +40,7 @@ modules:
         commit: 8c888208162d9e271b10931ef29e45e871210ec0
         x-checker-data:
           type: git
+          is-main-source: true
           tag-pattern: ^v([\d.]+)
         tag: v1.6.1
       - type: file
